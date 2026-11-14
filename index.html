@@ -493,7 +493,7 @@
   /* ---------- Personal Information: details, education and skills on one page ---------- */
   .window.pi { display: flex; flex-direction: column; max-height: 100%; }
   .window.pi .bar, .window.pi .status { flex: none; }
-  .window.pi .info-content { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; align-items: flex-start; padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1.1rem, 3vw, 2.25rem); }
+  .window.pi .info-content { flex: 1; min-height: 0; overflow: hidden; align-items: center; padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1.1rem, 3vw, 2.25rem); }
   .info { width: 100%; margin: auto 0; display: grid; gap: 1.1rem; animation: none; }
   .info h2.sec { font-size: clamp(1.2rem, min(2.6vw, 4.2dvh), 1.9rem); margin-bottom: .55rem; }
   .info .facts, .info .groups { max-width: none; }
@@ -630,6 +630,34 @@
     }
     .window.ach .famgrid li > div { bottom: .35rem; left: .35rem; padding: .2rem .55rem; }
     .window.ach .famgrid li > div strong { font-size: .68rem; }
+  }
+  /* Personal Information: shrink to fit shorter screens so it never needs scrolling */
+  @media (max-height: 780px) {
+    .window.pi .info-content { padding: .75rem 1.1rem; }
+    .info { gap: .75rem; }
+    .info h2.sec { font-size: 1.3rem; margin-bottom: .35rem; }
+    .info .facts { gap: .45rem; }
+    .info .facts li { padding: .45rem .7rem; }
+    .info .facts .ico { width: 2rem; height: 2rem; }
+    .info .facts strong { font-size: 1rem; }
+    .info .group { padding: .55rem .7rem; }
+    .info .group h3 { margin-bottom: .4rem; }
+    .window.pi .status { padding: .35rem 1rem; }
+  }
+  @media (max-height: 680px) {
+    .window.pi .status { display: none; }
+    .window.pi .bar { padding: .5rem 1rem; }
+    .info { gap: .5rem; }
+    .info h2.sec { font-size: 1.1rem; margin-bottom: .25rem; }
+    .info .facts li { padding: .3rem .6rem; gap: .5rem; }
+    .info .facts .ico, .info .group h3 .ico { display: none; }
+    .info .facts .k { font-size: .72rem; }
+    .info .facts strong { font-size: .9rem; }
+    .info .chips li { font-size: .8rem; padding: .2rem .6rem; }
+  }
+  @media (max-height: 580px) {
+    .window.pi .bar { display: none; }
+    .info .facts .k { display: none; }
   }
 </style>
 </head>
