@@ -499,7 +499,7 @@
   .info .facts, .info .groups { max-width: none; }
   .info .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
   .info .facts li { grid-column: auto; padding: .7rem .9rem; }
-  .info .facts li:nth-child(5) { grid-column: span 2; }
+  .info .facts:not(.one) li:last-child { grid-column: 1 / -1; }
   .info .facts.one { grid-template-columns: minmax(0, 1fr); }
   .info .facts.one li { grid-column: auto; }
   .info .facts strong { font-size: clamp(.98rem, 1.45vw, 1.18rem); }
@@ -657,7 +657,7 @@
   }
   @media (max-height: 580px) {
     .window.pi .bar { display: none; }
-    .info .facts .k { display: none; }
+    .info .facts .k { font-size: .66rem; }
   }
 
   /* ---------- Personal Information: everything on one page ---------- */
@@ -785,12 +785,20 @@
                 <div><span class="k">Birthday</span><strong>January 29, 2008</strong></div>
               </li>
               <li>
+                <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+                <div><span class="k">Eye color</span><strong>Brown</strong></div>
+              </li>
+              <li>
+                <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11z"/></svg></span>
+                <div><span class="k">Blood type</span><strong>O+</strong></div>
+              </li>
+              <li>
                 <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V17c0 1.5 3 3 6 3s6-1.5 6-3v-5.5"/></svg></span>
                 <div><span class="k">Year</span><strong>1st year BSIT (Web Technology)</strong></div>
               </li>
               <li>
                 <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-                <div><span class="k">Location</span><strong>City Camp Central, Baguio City</strong></div>
+                <div><span class="k">Location</span><strong>Pinsao Pilot Project, Baguio City</strong></div>
               </li>
             </ul>
           </section>
@@ -1062,5 +1070,26 @@
   })();
 </script>
 
+<script>
+/* Personal Information: if a very small screen can't fit everything, scale the page down so it never scrolls */
+(function () {
+  var info = document.querySelector('.info');
+  var box = document.querySelector('.info-content');
+  if (!info || !box) return;
+  function fit() {
+    info.style.zoom = '';
+    if (box.clientHeight === 0) return;
+    var need = info.getBoundingClientRect().height;
+    var have = box.clientHeight - 4;
+    if (need > have) info.style.zoom = Math.max(0.5, have / need).toFixed(3);
+  }
+  function later() { requestAnimationFrame(function () { requestAnimationFrame(fit); }); }
+  window.addEventListener('hashchange', later);
+  window.addEventListener('resize', later);
+  window.addEventListener('load', later);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
+  later();
+})();
+</script>
 </body>
 </html>
